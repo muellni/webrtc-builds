@@ -1,0 +1,21 @@
+image: Visual Studio 2017
+
+build_script:
+  - C:\Python27\Scripts\pip install pypiwin32
+  - "\"C:\\Program Files\\Git\\bin\\sh.exe\" --login -c \"/c/projects/webrtc-builds/build.sh -c x86 -b branch-heads/59 -o /c/projects/webrtc-builds/out\""
+  
+artifacts:
+  - path: '**\webrtc-*.7z'
+    name: Releases
+
+deploy:
+  provider: GitHub
+  auth_token:
+    secure: QQrYk1F7DLgQ9eht+J6hvDiDRu8a+AKKwsOetybrL8B32UYxlNJKSZIpD0yHPVsx
+  artifact: /webrtc-.*\.7z/
+  draft: false
+  prerelease: false
+  on:
+    appveyor_repo_tag: true
+
+test: off
