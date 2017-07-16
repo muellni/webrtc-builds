@@ -438,11 +438,9 @@ function compile() {
   fi
 
   pushd $outdir/src >/dev/null
-    compile::ninja "out/$TARGET_CPU/Debug" "$common_args $target_args is_debug=true"
     compile::ninja "out/$TARGET_CPU/Release" "$common_args $target_args is_debug=false symbol_level=0 enable_nacl=false"
 
     if [ $COMBINE_LIBRARIES = 1 ]; then
-      combine::static $platform "out/$TARGET_CPU/Debug" libwebrtc_full
       combine::static $platform "out/$TARGET_CPU/Release" libwebrtc_full
     fi
   popd >/dev/null
@@ -490,7 +488,7 @@ function package() {
     popd >/dev/null
 
     # Find and copy libraries
-    configs="Debug Release"
+    configs="Release"
     for cfg in $configs; do
       pushd src/out/$TARGET_CPU/$cfg >/dev/null
         if [ $COMBINE_LIBRARIES = 1 ]; then
