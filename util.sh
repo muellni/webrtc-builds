@@ -517,7 +517,7 @@ function package() {
     rm -f $OUTFILE
     pushd $label >/dev/null
       if [ $platform = 'win' ]; then
-        $DEPOT_TOOLS_DIR/win_toolchain/7z/7z.exe a -t7z -m0=lzma2 -mx=9 -mfb=64 -md=32m -ms=on -ir!lib/$TARGET_CPU -ir!linclude -r ../packages/$OUTFILE
+        $DEPOT_TOOLS_DIR/win_toolchain/7z/7z.exe a -t7z -m0=lzma2 -mx=9 -mfb=64 -md=32m -ms=on -ir!lib/$TARGET_CPU -ir!include -r ../packages/$OUTFILE
       else
         tar -czvf ../packages/$OUTFILE lib/$TARGET_CPU include
       fi
